@@ -1,7 +1,7 @@
 {
   "name": "aethel-agent-factory",
   "version": "1.0.0",
-  "description": "🤖 Unified decentralized AI agent factory with cryptographically verified trading decisions. Combines Aethelred Protocol (verifiable AI) with Agent Factory MVP (autonomous agents) for truly decentralized trading automation.",
+  "description": "Repository containing Aethelred Protocol (decentralized AI) and Agent Factory MVP (autonomous trading agents) - awaiting integration",
   "type": "module",
   "workspaces": [
     "agent-factory-mvp"
@@ -19,10 +19,7 @@
     "deploy:aethelred": "cd aethelred && make deploy-local",
     "deploy": "npm run deploy:aethelred && npm run deploy:agent-factory",
     "start:aethelred-node": "cd aethelred && cargo run --bin aethelred-node -- run executor",
-    "start:agent-controller": "cd agent-factory-mvp && node controller/enhanced_agent_controller.js",
-    "start:enhanced": "node agent-factory-mvp/controller/enhanced_agent_controller.js",
-    "test:integration": "node test-integration.js",
-    "test:deepseek": "node test-deepseek.js",
+    "start:agent-controller": "cd agent-factory-mvp && node controller/agent_controller.js",
     "monitor": "cd agent-factory-mvp && npx hardhat run scripts/monitor_agent.js --network localhost",
     "dev:setup": "npm run install:all && npm run build",
     "dev:start": "concurrently \"npm run node\" \"npm run start:aethelred-node\"",

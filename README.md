@@ -1,14 +1,10 @@
 # 🤖 Aethel Agent Factory
 
-A **unified decentralized AI agent factory** that combines the **Aethelred Protocol** with the **Agent Factory MVP** to create truly autonomous trading agents with cryptographically verified AI decisions.
+**Note**: This repository contains two separate projects:
+- **Aethelred Protocol**: Decentralized AI computation network
+- **Agent Factory MVP**: Autonomous trading agents on Ethereum
 
-## 🎉 **INTEGRATION STATUS: ✅ COMPLETE & TESTED**
-
-✅ **DeepSeek API Integration**: Fully functional with provided API key  
-✅ **Enhanced Agent Controller**: AI-powered decision making implemented  
-✅ **Rust Compilation**: Fixed and working with stub implementations  
-✅ **End-to-End Testing**: 100% success rate in integration tests  
-✅ **Fallback System**: Aethelred → DeepSeek → Rule-based logic working
+*These projects are currently separate and need to be integrated.*
 
 ## 🏗️ Project Structure
 
