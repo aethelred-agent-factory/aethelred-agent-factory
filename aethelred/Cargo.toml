@@ -18,8 +18,8 @@ thiserror = "1.0"
 
 # Stylus Contracts
 stylus-sdk = { version = "0.6.0", features = ["export-abi"] }
-alloy-primitives = "0.7.2"
-alloy-sol-types = { version = "0.7.2", features = ["json"] }
+alloy-primitives = "0.8.0"
+alloy-sol-types = { version = "0.8.0", features = ["json"] }
 
 # Node Application
 clap = { version = "4.0", features = ["derive"] }

@@ -1,0 +1,41 @@
+# Aethelred Node Dockerfile
+FROM rust:1.70-alpine as builder
+
+# Install build dependencies
+RUN apk add --no-cache \
+    build-base \
+    openssl-dev \
+    pkgconfig \
+    musl-dev
+
+WORKDIR /app
+
+# Copy workspace files
+COPY Cargo.toml Cargo.lock ./
+COPY node ./node
+COPY contracts ./contracts
+
+# Build the node
+RUN cargo build --release --bin aethelred-node
+
+# Runtime stage
+FROM alpine:latest
+
+# Install runtime dependencies
+RUN apk add --no-cache \
+    ca-certificates \
+    libgcc
+
+# Copy the binary
+COPY --from=builder /app/target/release/aethelred-node /usr/local/bin/aethelred-node
+
+# Create app directory
+RUN mkdir -p /app/data /app/config
+
+WORKDIR /app
+
+# Expose port for metrics
+EXPOSE 9090
+
+# Default command
+CMD ["aethelred-node", "--help"]
