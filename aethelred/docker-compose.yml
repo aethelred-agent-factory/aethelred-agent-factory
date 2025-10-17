@@ -1,0 +1,214 @@
+# Aethelred Protocol Docker Compose Configuration
+# This provides a complete development and testing environment
+
+version: '3.8'
+
+services:
+  # Ethereum node for local development
+  anvil:
+    image: ghcr.io/foundry-rs/foundry:latest
+    container_name: aethelred-anvil
+    command: >
+      anvil
+      --host 0.0.0.0
+      --port 8545
+      --accounts 10
+      --balance 10000
+      --gas-limit 30000000
+      --block-time 2
+    ports:
+      - "8545:8545"
+    networks:
+      - aethelred-network
+
+  # Redis for caching and task queues
+  redis:
+    image: redis:7-alpine
+    container_name: aethelred-redis
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis-data:/data
+    networks:
+      - aethelred-network
+
+  # PostgreSQL for metadata and analytics
+  postgres:
+    image: postgres:15-alpine
+    container_name: aethelred-postgres
+    environment:
+      POSTGRES_DB: aethelred
+      POSTGRES_USER: aethelred
+      POSTGRES_PASSWORD: aethelred_dev_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - aethelred-network
+
+  # IPFS node for decentralized storage
+  ipfs:
+    image: ipfs/kubo:latest
+    container_name: aethelred-ipfs
+    ports:
+      - "5001:5001"  # API
+      - "8080:8080"  # Gateway
+      - "4001:4001"  # Swarm
+    volumes:
+      - ipfs-data:/data/ipfs
+    networks:
+      - aethelred-network
+
+  # Aethelred Executor Node
+  executor:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.node
+    container_name: aethelred-executor
+    environment:
+      - RUST_LOG=info
+      - AETHELRED_ROLE=executor
+      - AETHELRED_CONFIG=/app/config/executor.toml
+      - L2_RPC_URL=http://anvil:8545
+    volumes:
+      - ./config:/app/config
+      - ./data/executor:/app/data
+    depends_on:
+      - anvil
+      - redis
+      - postgres
+    networks:
+      - aethelred-network
+    restart: unless-stopped
+
+  # Aethelred Verifier Node
+  verifier:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.node
+    container_name: aethelred-verifier
+    environment:
+      - RUST_LOG=info
+      - AETHELRED_ROLE=verifier
+      - AETHELRED_CONFIG=/app/config/verifier.toml
+      - L2_RPC_URL=http://anvil:8545
+    volumes:
+      - ./config:/app/config
+      - ./data/verifier:/app/data
+    depends_on:
+      - anvil
+      - redis
+      - postgres
+    networks:
+      - aethelred-network
+    restart: unless-stopped
+
+  # Aethelred Finalizer Node
+  finalizer:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.node
+    container_name: aethelred-finalizer
+    environment:
+      - RUST_LOG=info
+      - AETHELRED_ROLE=finalizer
+      - AETHELRED_CONFIG=/app/config/finalizer.toml
+      - L2_RPC_URL=http://anvil:8545
+    volumes:
+      - ./config:/app/config
+      - ./data/finalizer:/app/data
+    depends_on:
+      - anvil
+      - redis
+      - postgres
+    networks:
+      - aethelred-network
+    restart: unless-stopped
+
+  # Aethelred Quality Assessor Node
+  assessor:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.node
+    container_name: aethelred-assessor
+    environment:
+      - RUST_LOG=info
+      - AETHELRED_ROLE=assessor
+      - AETHELRED_CONFIG=/app/config/assessor.toml
+      - L2_RPC_URL=http://anvil:8545
+    volumes:
+      - ./config:/app/config
+      - ./data/assessor:/app/data
+    depends_on:
+      - anvil
+      - redis
+      - postgres
+    networks:
+      - aethelred-network
+    restart: unless-stopped
+
+  # Monitoring and metrics
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: aethelred-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    networks:
+      - aethelred-network
+
+  # Grafana for visualization
+  grafana:
+    image: grafana/grafana:latest
+    container_name: aethelred-grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./monitoring/grafana:/etc/grafana/provisioning
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=aethelred_admin
+      - GF_INSTALL_PLUGINS=grafana-piechart-panel
+    networks:
+      - aethelred-network
+
+  # Task submission service (for testing)
+  task-submitter:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.tools
+    container_name: aethelred-task-submitter
+    environment:
+      - L2_RPC_URL=http://anvil:8545
+      - SUBMISSION_INTERVAL=30
+    volumes:
+      - ./config:/app/config
+      - ./test-data:/app/test-data
+    depends_on:
+      - anvil
+      - executor
+    networks:
+      - aethelred-network
+    restart: unless-stopped
+
+networks:
+  aethelred-network:
+    driver: bridge
+
+volumes:
+  redis-data:
+  postgres-data:
+  ipfs-data:
+  prometheus-data:
+  grafana-data:

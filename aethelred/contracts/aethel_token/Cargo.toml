@@ -1,0 +1,15 @@
+[package]
+name = "aethel-token"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+
+[dependencies]
+# Using stub implementation for now
+# stylus-sdk = { workspace = true }
+# alloy-primitives = { workspace = true }
+# alloy-sol-types = { workspace = true }
+serde = { workspace = true }
+
+[features]
+# export-abi = ["stylus-sdk/export-abi"]

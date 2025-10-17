@@ -1,0 +1,21 @@
+#
+# Aethelred Node Configuration File (Example)
+#
+# Copy this file to ~/.aethelred/config.toml and edit it with your details.
+#
+
+# RPC URL for the Ethereum L2 network you are targeting.
+# Public endpoints are fine for testing, but a dedicated provider (e.g., Infura, Alchemy) is recommended for production.
+# Example for Arbitrum Sepolia testnet:
+l2_rpc_url = "https://sepolia-rollup.arbitrum.io/rpc"
+
+# Private key for the node's wallet.
+# This wallet will be used to send transactions (e.g., submitting results, staking).
+# It must be funded with the L2's native gas token (e.g., Sepolia ETH).
+# IMPORTANT: This key is stored in plain text. Use a dedicated, test-only wallet.
+# The key must start with "0x".
+private_key = "0x..."
+
+# Deployed address of the AethelCore smart contract on the L2 network.
+# You must deploy the contract first and paste its address here.
+core_contract_address = "0x..."

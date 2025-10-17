@@ -1,0 +1,67 @@
+{
+  "name": "aethel-agent-factory",
+  "version": "1.0.0",
+  "description": "🤖 Unified decentralized AI agent factory with cryptographically verified trading decisions. Combines Aethelred Protocol (verifiable AI) with Agent Factory MVP (autonomous agents) for truly decentralized trading automation.",
+  "type": "module",
+  "workspaces": [
+    "agent-factory-mvp"
+  ],
+  "scripts": {
+    "install:all": "npm install && cd agent-factory-mvp && npm install",
+    "build:rust": "cd aethelred && cargo build --release",
+    "build:contracts": "cd agent-factory-mvp && npx hardhat compile",
+    "build": "npm run build:rust && npm run build:contracts",
+    "test:rust": "cd aethelred && cargo test",
+    "test:contracts": "cd agent-factory-mvp && npx hardhat test",
+    "test": "npm run test:rust && npm run test:contracts",
+    "node": "cd agent-factory-mvp && npx hardhat node",
+    "deploy:agent-factory": "cd agent-factory-mvp && npx hardhat run scripts/deploy_and_write.js --network localhost",
+    "deploy:aethelred": "cd aethelred && make deploy-local",
+    "deploy": "npm run deploy:aethelred && npm run deploy:agent-factory",
+    "start:aethelred-node": "cd aethelred && cargo run --bin aethelred-node -- run executor",
+    "start:agent-controller": "cd agent-factory-mvp && node controller/enhanced_agent_controller.js",
+    "start:enhanced": "node agent-factory-mvp/controller/enhanced_agent_controller.js",
+    "test:integration": "node test-integration.js",
+    "test:deepseek": "node test-deepseek.js",
+    "monitor": "cd agent-factory-mvp && npx hardhat run scripts/monitor_agent.js --network localhost",
+    "dev:setup": "npm run install:all && npm run build",
+    "dev:start": "concurrently \"npm run node\" \"npm run start:aethelred-node\"",
+    "integration:test": "npm run test && cd agent-factory-mvp && npx hardhat run scripts/test_trading.js --network localhost",
+    "clean": "cd aethelred && cargo clean && cd ../agent-factory-mvp && rm -rf artifacts cache",
+    "lint": "cd aethelred && cargo fmt --check && cargo clippy -- -D warnings"
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2",
+    "cross-fetch": "^4.0.8",
+    "dotenv": "^16.3.1",
+    "ethers": "^6.9.0",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0"
+  },
+  "author": "Aethel Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aethelred-protocol/aethel-agent-factory"
+  },
+  "keywords": [
+    "blockchain",
+    "ai",
+    "trading",
+    "ethereum",
+    "arbitrum",
+    "defi",
+    "autonomous-agents",
+    "rust",
+    "solidity",
+    "aethelred",
+    "deepseek",
+    "decentralized-ai",
+    "verifiable-computation",
+    "nft-agents",
+    "stylus",
+    "agent-factory"
+  ]
+}

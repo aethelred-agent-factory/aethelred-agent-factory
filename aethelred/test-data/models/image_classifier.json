@@ -1,0 +1,9 @@
+{
+    "name": "test-image-classifier",
+    "type": "image-classification",
+    "parameters": {
+        "num_classes": 1000,
+        "image_size": [224, 224]
+    },
+    "hash": "a79fabae5ae80ae66b644ac726aa4dfef806ca34c32665d3d485a65b32b2f2c8"
+}
