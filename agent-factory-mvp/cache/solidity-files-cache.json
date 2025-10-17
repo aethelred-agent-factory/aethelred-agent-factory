@@ -846,6 +846,43 @@
       "artifacts": [
         "MockPriceFeed"
       ]
+    },
+    "/home/amy/aethel-agent-factory/agent-factory-mvp/contracts/MockRouterFixed.sol": {
+      "lastModificationDate": 1760724924501,
+      "contentHash": "b3f0eefec7ddc835fbf33136668fd663",
+      "sourceName": "contracts/MockRouterFixed.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.18"
+      ],
+      "artifacts": [
+        "MockRouterFixed"
+      ]
     }
   }
 }

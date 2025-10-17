@@ -37,11 +37,13 @@ for (const [name, path] of Object.entries(ARTIFACT_PATHS)) {
 // Global provider and signer
 const provider = new ethers.JsonRpcProvider(RPC);
 
-// Helper to call DeepSeek with a short JSON prompt and get back action JSON
-async function queryDeepSeek(promptJSON) {
-  const url = "https://api.deepseek.com/chat/completions";
+// Helper to call Local LLM (or DeepSeek) with a short JSON prompt and get back action JSON
+async function queryLLM(promptJSON) {
+  // Try local LLM first, fallback to DeepSeek if needed
+  const useLocalLLM = process.env.USE_LOCAL_LLM !== 'false';
+  const url = useLocalLLM ? "http://localhost:3001/chat/completions" : "https://api.deepseek.com/chat/completions";
   const body = {
-    model: "deepseek-chat",
+    model: useLocalLLM ? "local-trading-llm" : "deepseek-chat",
     messages: [
       {
         role: "system", 
@@ -57,18 +59,20 @@ async function queryDeepSeek(promptJSON) {
   };
 
   try {
+    const headers = { "Content-Type": "application/json" };
+    if (!useLocalLLM) {
+      headers["Authorization"] = `Bearer ${DEEPSEEK_API_KEY}`;
+    }
+    
     const resp = await fetch(url, {
       method: "POST",
-      headers: {
-        "Authorization": `Bearer ${DEEPSEEK_API_KEY}`,
-        "Content-Type": "application/json"
-      },
+      headers,
       body: JSON.stringify(body)
     });
 
     if (!resp.ok) {
       const text = await resp.text();
-      throw new Error(`DeepSeek API error: ${resp.status} - ${text}`);
+      throw new Error(`LLM API error: ${resp.status} - ${text}`);
     }
 
     const data = await resp.json();
@@ -91,7 +95,7 @@ async function queryDeepSeek(promptJSON) {
     }
     return { action: "hold" }; // Default safe action
   } catch (error) {
-    console.error("DeepSeek fetch error:", error.message);
+    console.error("LLM fetch error:", error.message);
     // Return a default structure to avoid crashing the loop
     return { error: error.message };
   }
@@ -141,15 +145,30 @@ async function mainLoop() {
 
   // 2. Configure Wallet
   const wallet = getContract(walletAddr, "AgentWallet", signer);
-  const isTargetAllowed = await wallet.allowedTargets(routerAddr);
-  if (!isTargetAllowed) {
+  
+  // Set router as allowed target
+  const isRouterAllowed = await wallet.allowedTargets(routerAddr);
+  if (!isRouterAllowed) {
     console.log("Controller: Setting router as allowed target on agent wallet...");
     try {
       const txSetTarget = await wallet.setAllowedTarget(routerAddr, true);
       await txSetTarget.wait();
       console.log("Router target set.");
     } catch (e) {
-      console.warn("Controller: Failed to set allowed target (might be set already).");
+      console.warn("Controller: Failed to set router target (might be set already).");
+    }
+  }
+  
+  // Set USDC as allowed target (needed for approvals)
+  const isUsdcAllowed = await wallet.allowedTargets(usdcAddr);
+  if (!isUsdcAllowed) {
+    console.log("Controller: Setting USDC as allowed target on agent wallet...");
+    try {
+      const txSetTarget = await wallet.setAllowedTarget(usdcAddr, true);
+      await txSetTarget.wait();
+      console.log("USDC target set.");
+    } catch (e) {
+      console.warn("Controller: Failed to set USDC target (might be set already).");
     }
   }
 
@@ -196,10 +215,10 @@ async function mainLoop() {
       };
 
       let plan;
-      const dsResponse = await queryDeepSeek(JSON.stringify(perception));
+      const llmResponse = await queryLLM(JSON.stringify(perception));
       
-      if (dsResponse.error) {
-        console.log(`   ⚠️  DeepSeek API failed: ${dsResponse.error}`);
+      if (llmResponse.error) {
+        console.log(`   ⚠️  LLM API failed: ${llmResponse.error}`);
         // Fallback to simple rule-based trading
         if (priceUSD > 2100 && usdcAmount >= 100) {
           plan = { action: "swap", amount: "100", condition: "price>2100", source: "fallback" };
@@ -209,8 +228,9 @@ async function mainLoop() {
           console.log(`   📊 Fallback rule: Price $${priceUSD} ≤ $2100 or insufficient balance, holding`);
         }
       } else {
-        plan = dsResponse;
-        console.log(`   🧠 DeepSeek decision: ${JSON.stringify(dsResponse)}`);
+        plan = llmResponse;
+        const llmType = process.env.USE_LOCAL_LLM !== 'false' ? 'Local LLM' : 'DeepSeek';
+        console.log(`   🧠 ${llmType} decision: ${JSON.stringify(llmResponse)}`);
       }
 
       // Decide if plan instructs a swap
@@ -233,13 +253,22 @@ async function mainLoop() {
             if (bal < amountToSwap) {
                 console.log(`Insufficient USDC balance (${ethers.formatUnits(bal, 6)}) to swap ${ethers.formatUnits(amountToSwap, 6)}. Skipping.`);
             } else {
-                // Keep this line for encoding:
-                const routerInterface = new ethers.Interface(ABIS.MockRouter);
+                // First, approve USDC for router if needed
+                const usdcInterface = new ethers.Interface(ABIS.MockERC20);
+                const currentAllowance = await usdc.allowance(walletAddr, routerAddr);
                 
-                // Build calldata for router.swapAForB(from, to, amount)
+                if (currentAllowance < amountToSwap) {
+                    console.log(`   📝 Approving USDC for router...`);
+                    const approveCalldata = usdcInterface.encodeFunctionData("approve", [routerAddr, amountToSwap]);
+                    const approveTx = await wallet.execute(usdcAddr, 0, approveCalldata);
+                    await approveTx.wait();
+                    console.log(`   ✅ USDC approved`);
+                }
+                
+                // Now execute the swap
+                const routerInterface = new ethers.Interface(ABIS.MockRouter);
                 const calldata = routerInterface.encodeFunctionData("swapAForB", [walletAddr, owner, amountToSwap]);
 
-                // Call wallet.execute(target=routerAddr, value=0, data=calldata)
                 console.log(`   🔄 Executing swap: ${ethers.formatUnits(amountToSwap, 6)} USDC → WETH`);
                 const execTx = await wallet.execute(routerAddr, 0, calldata);
                 await execTx.wait();

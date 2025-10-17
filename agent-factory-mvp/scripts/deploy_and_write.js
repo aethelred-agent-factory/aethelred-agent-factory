@@ -30,11 +30,12 @@ async function main() {
   const mintFee = ethers.parseEther("0.01");
   const factory = await deployContract("AgentFactory", [walletImpl.target, mintFee]);
 
-  // Seed Router Liquidity
+  // Seed Router Liquidity and Controller
   const mintAmountUSDC = ethers.parseUnits("1000000", 6); // 1M mUSDC (6 decimals)
   const mintAmountWETH = ethers.parseUnits("100", 18); // 100 mWETH (18 decimals)
+  const controllerAmountUSDC = ethers.parseUnits("100000", 6); // 100K for controller
 
-  await usdc.mint(deployer.address, mintAmountUSDC);
+  await usdc.mint(deployer.address, mintAmountUSDC + controllerAmountUSDC);
   await weth.mint(deployer.address, mintAmountWETH);
 
   await usdc.approve(mockRouter.target, mintAmountUSDC);

@@ -39,3 +39,32 @@ const config = {
 };
 
 module.exports = config;
+
+
+// --- Custom task added to mint agents ---
+task("mint", "Mints a new agent NFT with a given name and strategy ID")
+  .addParam("name", "The name for the new agent, e.g., TESTER")
+  .addParam("strategyid", "The strategy ID for the agent, e.g., 1")
+  .setAction(async (taskArgs, hre) => {
+    try {
+      console.log(`Attempting to mint agent with Name: ${taskArgs.name}, StrategyID: ${taskArgs.strategyid}`);
+      const addresses = require("./deployed_addresses.json");
+      const agentFactory = await hre.ethers.getContractAt("AgentFactory", addresses.factory);
+      
+      const [signer] = await hre.ethers.getSigners();
+      console.log(`Using signer account: ${signer.address}`);
+      const usdc = await hre.ethers.getContractAt("MockERC20", addresses.usdc);
+      await usdc.mint(signer.address, 100000000000000000000000n); // 100,000 USDC
+
+      await usdc.mint(signer.address, BigInt("100000000000000000000000")); // Mints 100,000 USDC
+
+      const tx = await agentFactory.safeMint(taskArgs.name, BigInt(taskArgs.strategyid));
+      console.log("Transaction sent... waiting for confirmation...");
+      await tx.wait();
+
+      console.log(`✅  Success! Agent "${taskArgs.name}" minted. Transaction hash: ${tx.hash}`);
+    } catch (error) {
+      console.error("❌  Minting failed:", error.message);
+      process.exit(1);
+    }
+  });

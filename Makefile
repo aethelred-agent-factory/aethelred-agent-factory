@@ -64,6 +64,13 @@ dev-start:
 	@echo "  - Aethelred executor node"
 	npm run dev:start
 
+start-hardhat-node:
+	@echo "🌐 Starting Hardhat node..."
+	@echo "Starting local blockchain..."
+	cd agent-factory-mvp && npx hardhat node &
+	@sleep 5
+	@echo "✅ Hardhat node started!"
+
 dev-stop:
 	@echo "🛑 Stopping development environment..."
 	pkill -f "hardhat node" || true
@@ -93,6 +100,10 @@ integration:
 deploy:
 	@echo "🚀 Deploying full system..."
 	npm run deploy
+
+deploy-agent-factory-only:
+	@echo "🟨 Deploying Agent Factory only..."
+	npm run deploy:agent-factory
 
 deploy-rust:
 	@echo "🦀 Deploying Aethelred protocol..."
@@ -133,7 +144,7 @@ setup-env:
 		echo "📝 Please configure aethelred/config.example.toml"; \
 	fi
 
-quick-start: install build setup-env deploy dev-start
+quick-start: install build setup-env start-hardhat-node deploy-agent-factory-only
 	@echo "🎉 Quick start complete!"
 	@echo "📊 Run 'make monitor' to check agent status"
 	@echo "🔧 Run 'make help' for more commands"

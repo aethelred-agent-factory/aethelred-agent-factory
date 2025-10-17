@@ -55,4 +55,21 @@ async function main() {
   console.log("================================\n");
 }
 
-main().catch((err) => { console.error(err); process.exitCode = 1; });
+// Run monitoring function repeatedly
+async function startMonitoring() {
+  console.log("🔄 Starting continuous monitoring...\n");
+  
+  setInterval(async () => {
+    try {
+      await main();
+    } catch (error) {
+      console.error("Monitor error:", error.message);
+    }
+  }, 10000); // Check every 10 seconds
+}
+
+if (process.argv.includes('--continuous')) {
+  startMonitoring().catch((err) => { console.error(err); process.exitCode = 1; });
+} else {
+  main().catch((err) => { console.error(err); process.exitCode = 1; });
+}

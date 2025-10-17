@@ -16,10 +16,11 @@
   "dependencies": {
     "@nomicfoundation/hardhat-toolbox": "^4.0.0",
     "@openzeppelin/contracts": "^4.9.3",
-    "ethers": "^6.9.0",
+    "cross-fetch": "^4.0.8",
     "dotenv": "^16.3.1",
-    "node-fetch": "^3.3.2",
-    "cross-fetch": "^4.0.8"
+    "ethers": "^6.9.0",
+    "express": "^5.1.0",
+    "node-fetch": "^3.3.2"
   },
   "devDependencies": {
     "hardhat": "^2.19.1"

@@ -1,0 +1,9 @@
+WARNING: You are currently using Node.js v18.20.8, which is not supported by Hardhat. This can lead to unexpected behavior. See https://hardhat.org/nodejs-versions
+
+
+Error HH305: Unrecognized param --continuous
+
+HardhatError: HH305: Unrecognized param --continuous
+    at ArgumentsParser._parseTaskParamArguments (/home/amy/aethel-agent-factory/agent-factory-mvp/node_modules/hardhat/src/internal/cli/ArgumentsParser.ts:207:15)
+    at ArgumentsParser.parseTaskArguments (/home/amy/aethel-agent-factory/agent-factory-mvp/node_modules/hardhat/src/internal/cli/ArgumentsParser.ts:181:12)
+    at main (/home/amy/aethel-agent-factory/agent-factory-mvp/node_modules/hardhat/src/internal/cli/cli.ts:316:39)

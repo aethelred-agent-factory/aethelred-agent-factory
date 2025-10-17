@@ -1,0 +1,69 @@
+require("@nomicfoundation/hardhat-toolbox");
+require("dotenv").config();
+
+// HardhatUserConfig is inferred by Hardhat, no need to import it explicitly
+const config = {
+  solidity: {
+    compilers: [
+      {
+        version: "0.8.18",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
+        },
+      }
+    ]
+  },
+  networks: {
+    hardhat: {
+      chainId: 1337,
+      accounts: {
+        count: 20
+      },
+      forking: process.env.ALCHEMY_RPC_URL ? {
+        url: process.env.ALCHEMY_RPC_URL,
+        blockNumber: 21037500, // Recent block for consistent testing
+      } : undefined
+    },
+    localhost: {
+      url: "http://127.0.0.1:8545",
+      chainId: 1337
+    },
+    mainnetFork: {
+      url: "http://127.0.0.1:8545", 
+      chainId: 1337
+    }
+  }
+};
+
+module.exports = config;
+
+
+// --- Custom task added to mint agents ---
+task("mint", "Mints a new agent NFT with a given name and strategy ID")
+  .addParam("name", "The name for the new agent, e.g., TESTER")
+  .addParam("strategyid", "The strategy ID for the agent, e.g., 1")
+  .setAction(async (taskArgs, hre) => {
+    try {
+      console.log(`Attempting to mint agent with Name: ${taskArgs.name}, StrategyID: ${taskArgs.strategyid}`);
+      const addresses = require("./deployed_addresses.json");
+      const agentFactory = await hre.ethers.getContractAt("AgentFactory", addresses.factory);
+      
+      const [signer] = await hre.ethers.getSigners();
+      console.log(`Using signer account: ${signer.address}`);
+
+      const usdc = await hre.ethers.getContractAt("MockERC20", addresses.usdc);
+      await usdc.mint(signer.address, BigInt("100000000000000000000000")); // Mints 100,000 USDC
+
+      const tx = await agentFactory.safeMint(taskArgs.name, BigInt(taskArgs.strategyid));
+      console.log("Transaction sent... waiting for confirmation...");
+      await tx.wait();
+
+      console.log(`✅  Success! Agent "${taskArgs.name}" minted. Transaction hash: ${tx.hash}`);
+    } catch (error) {
+      console.error("❌  Minting failed:", error.message);
+      process.exit(1);
+    }
+  });

@@ -22,10 +22,11 @@
     "start:agent-controller": "cd agent-factory-mvp && node controller/agent_controller.js",
     "monitor": "cd agent-factory-mvp && npx hardhat run scripts/monitor_agent.js --network localhost",
     "dev:setup": "npm run install:all && npm run build",
-    "dev:start": "concurrently \"npm run node\" \"npm run start:aethelred-node\"",
+    "dev:start": "npm run node",
     "integration:test": "npm run test && cd agent-factory-mvp && npx hardhat run scripts/test_trading.js --network localhost",
     "clean": "cd aethelred && cargo clean && cd ../agent-factory-mvp && rm -rf artifacts cache",
-    "lint": "cd aethelred && cargo fmt --check && cargo clippy -- -D warnings"
+    "lint": "cd aethelred && cargo fmt --check && cargo clippy -- -D warnings",
+    "mint:agent": "cd agent-factory-mvp && npx hardhat mint --name \"TEST_AGENT\" --strategyid 1 --network localhost"
   },
   "dependencies": {
     "concurrently": "^8.2.2",

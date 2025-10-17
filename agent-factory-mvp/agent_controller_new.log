@@ -1,0 +1,303 @@
+Controller: Agent wallet found at: 0x61c36a8d610163660E21a8b7359e1Cac0C9133e1
+Controller: Funding agent wallet with 10000.0 USDC...
+Agent wallet funded.
+
+Starting controller loop (runs every 20s).
+
+🤖 [TICK] Agent Status:
+   Price: $2200 WETH/USD
+   USDC: 19415.00 | WETH: 0.2659
+   Portfolio: $20000.00 USD
+   🧠 Local LLM decision: {"action":"swap","amount":"100","condition":"price>2100","confidence":0.85,"reasoning":"Price $2200 > $2100 threshold, executing swap of 100 USDC"}
+   📝 Approving USDC for router...
+   ✅ USDC approved
+   🔄 Executing swap: 100.0 USDC → WETH
+   ✅ Swap completed! TX: 0x0ebe42e8faa12dbf8d423321b27d853d5d4b657ec62a1ee24a106eee3bc0463f
+
+🤖 [TICK] Agent Status:
+   Price: $2200 WETH/USD
+   USDC: 19315.00 | WETH: 0.2659
+   Portfolio: $19900.00 USD
+LLM fetch error: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   ⚠️  LLM API failed: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   🔄 Fallback rule: Price $2200 > $2100, executing swap
+   📝 Approving USDC for router...
+   ✅ USDC approved
+   🔄 Executing swap: 100.0 USDC → WETH
+   ✅ Swap completed! TX: 0x4c09d043f8e820b40ffc5341fdd9190b5323e8e6e9f1dad80629146434728440
+
+🤖 [TICK] Agent Status:
+   Price: $2200 WETH/USD
+   USDC: 19215.00 | WETH: 0.2659
+   Portfolio: $19800.00 USD
+LLM fetch error: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   ⚠️  LLM API failed: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   🔄 Fallback rule: Price $2200 > $2100, executing swap
+   📝 Approving USDC for router...
+   ✅ USDC approved
+   🔄 Executing swap: 100.0 USDC → WETH
+   ✅ Swap completed! TX: 0x2d3db67316aed9202b089023fac262a0f4235f60f956b45d933fec9086470c3e
+
+🤖 [TICK] Agent Status:
+   Price: $2200 WETH/USD
+   USDC: 19115.00 | WETH: 0.2659
+   Portfolio: $19700.00 USD
+LLM fetch error: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   ⚠️  LLM API failed: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   🔄 Fallback rule: Price $2200 > $2100, executing swap
+   📝 Approving USDC for router...
+   ✅ USDC approved
+   🔄 Executing swap: 100.0 USDC → WETH
+   ✅ Swap completed! TX: 0x420e7588d315b10e7ac66e9af09d0cdbdef7ce07646272708695443ae8d88b88
+
+🤖 [TICK] Agent Status:
+   Price: $2200 WETH/USD
+   USDC: 19015.00 | WETH: 0.2659
+   Portfolio: $19600.00 USD
+LLM fetch error: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   ⚠️  LLM API failed: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   🔄 Fallback rule: Price $2200 > $2100, executing swap
+   📝 Approving USDC for router...
+   ✅ USDC approved
+   🔄 Executing swap: 100.0 USDC → WETH
+   ✅ Swap completed! TX: 0x4c6574bc2355cc983767191cfc31c0d1b6cdb8a55a5cfb1100dfcf96ac4168d0
+
+🤖 [TICK] Agent Status:
+   Price: $2200 WETH/USD
+   USDC: 18915.00 | WETH: 0.2659
+   Portfolio: $19500.00 USD
+LLM fetch error: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   ⚠️  LLM API failed: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   🔄 Fallback rule: Price $2200 > $2100, executing swap
+   📝 Approving USDC for router...
+   ✅ USDC approved
+   🔄 Executing swap: 100.0 USDC → WETH
+   ✅ Swap completed! TX: 0x53ef8370a01f0e3ddea099601645c68e9c2d9a37976ce68a47aff6e1f22f6c88
+
+🤖 [TICK] Agent Status:
+   Price: $2200 WETH/USD
+   USDC: 18815.00 | WETH: 0.2659
+   Portfolio: $19400.00 USD
+LLM fetch error: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   ⚠️  LLM API failed: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   🔄 Fallback rule: Price $2200 > $2100, executing swap
+   📝 Approving USDC for router...
+   ✅ USDC approved
+   🔄 Executing swap: 100.0 USDC → WETH
+   ✅ Swap completed! TX: 0xf3dfe316c56a8080cc1e1c8f9cdb0acf7d868ebc4cf2946e4f04c64805ca9d50
+
+🤖 [TICK] Agent Status:
+   Price: $2200 WETH/USD
+   USDC: 18715.00 | WETH: 0.2659
+   Portfolio: $19300.00 USD
+LLM fetch error: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   ⚠️  LLM API failed: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   🔄 Fallback rule: Price $2200 > $2100, executing swap
+   📝 Approving USDC for router...
+   ✅ USDC approved
+   🔄 Executing swap: 100.0 USDC → WETH
+   ✅ Swap completed! TX: 0xf3513da1e643aa28ae74402373c4ebadb991ba0231e12bf455e0e5966dd6fae8
+
+🤖 [TICK] Agent Status:
+   Price: $2200 WETH/USD
+   USDC: 18615.00 | WETH: 0.2659
+   Portfolio: $19200.00 USD
+LLM fetch error: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   ⚠️  LLM API failed: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   🔄 Fallback rule: Price $2200 > $2100, executing swap
+   📝 Approving USDC for router...
+   ✅ USDC approved
+   🔄 Executing swap: 100.0 USDC → WETH
+   ✅ Swap completed! TX: 0x308d40d883333bf9d660a478514a3ef3fcec37276f42ea8d69244a8751b7e255
+
+🤖 [TICK] Agent Status:
+   Price: $2200 WETH/USD
+   USDC: 18515.00 | WETH: 0.2659
+   Portfolio: $19100.00 USD
+LLM fetch error: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   ⚠️  LLM API failed: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   🔄 Fallback rule: Price $2200 > $2100, executing swap
+   📝 Approving USDC for router...
+   ✅ USDC approved
+   🔄 Executing swap: 100.0 USDC → WETH
+   ✅ Swap completed! TX: 0x03b6315be7ab86e665fb71cf0097c4b676af51cccc4774496455df85ea70f8a7
+
+🤖 [TICK] Agent Status:
+   Price: $2200 WETH/USD
+   USDC: 18415.00 | WETH: 0.2659
+   Portfolio: $19000.00 USD
+LLM fetch error: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   ⚠️  LLM API failed: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   🔄 Fallback rule: Price $2200 > $2100, executing swap
+   📝 Approving USDC for router...
+   ✅ USDC approved
+   🔄 Executing swap: 100.0 USDC → WETH
+   ✅ Swap completed! TX: 0x37691f7b5acf79e271c5a5c1b5ab553d4fc53b31beadc49f447afe2ff4d93d12
+
+🤖 [TICK] Agent Status:
+   Price: $2200 WETH/USD
+   USDC: 18315.00 | WETH: 0.2659
+   Portfolio: $18900.00 USD
+LLM fetch error: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   ⚠️  LLM API failed: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   🔄 Fallback rule: Price $2200 > $2100, executing swap
+   📝 Approving USDC for router...
+   ✅ USDC approved
+   🔄 Executing swap: 100.0 USDC → WETH
+   ✅ Swap completed! TX: 0x0c27e6bb135441b12c5405e91f3839beade98de771adde7911599dceff4758a9
+
+🤖 [TICK] Agent Status:
+   Price: $2200 WETH/USD
+   USDC: 18215.00 | WETH: 0.2659
+   Portfolio: $18800.00 USD
+LLM fetch error: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   ⚠️  LLM API failed: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   🔄 Fallback rule: Price $2200 > $2100, executing swap
+   📝 Approving USDC for router...
+   ✅ USDC approved
+   🔄 Executing swap: 100.0 USDC → WETH
+   ✅ Swap completed! TX: 0x90b6c06dae88ca2918639e5369142d371fc5eac445ef06debb98fc5c676938f6
+
+🤖 [TICK] Agent Status:
+   Price: $2200 WETH/USD
+   USDC: 18115.00 | WETH: 0.2659
+   Portfolio: $18700.00 USD
+LLM fetch error: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   ⚠️  LLM API failed: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   🔄 Fallback rule: Price $2200 > $2100, executing swap
+   📝 Approving USDC for router...
+   ✅ USDC approved
+   🔄 Executing swap: 100.0 USDC → WETH
+   ✅ Swap completed! TX: 0x46a4a74d3911076ca7434a71b5339027d25bf25c74b759f6ae66e0963e67d91d
+
+🤖 [TICK] Agent Status:
+   Price: $2200 WETH/USD
+   USDC: 18015.00 | WETH: 0.2659
+   Portfolio: $18600.00 USD
+LLM fetch error: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   ⚠️  LLM API failed: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   🔄 Fallback rule: Price $2200 > $2100, executing swap
+   📝 Approving USDC for router...
+   ✅ USDC approved
+   🔄 Executing swap: 100.0 USDC → WETH
+   ✅ Swap completed! TX: 0xc52e53b27cf7fe9f9a39e9c2658c7634d34caf9995d0f2013ee55b72f3460fd2
+
+🤖 [TICK] Agent Status:
+   Price: $2200 WETH/USD
+   USDC: 17915.00 | WETH: 0.2659
+   Portfolio: $18500.00 USD
+LLM fetch error: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   ⚠️  LLM API failed: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   🔄 Fallback rule: Price $2200 > $2100, executing swap
+   📝 Approving USDC for router...
+   ✅ USDC approved
+   🔄 Executing swap: 100.0 USDC → WETH
+   ✅ Swap completed! TX: 0x55b1f195102490fbb40a9695b80b4ec7e6ce1b65879a69cae0cdc5d4a4a61e4f
+
+🤖 [TICK] Agent Status:
+   Price: $2200 WETH/USD
+   USDC: 17815.00 | WETH: 0.2659
+   Portfolio: $18400.00 USD
+LLM fetch error: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   ⚠️  LLM API failed: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   🔄 Fallback rule: Price $2200 > $2100, executing swap
+   📝 Approving USDC for router...
+   ✅ USDC approved
+   🔄 Executing swap: 100.0 USDC → WETH
+   ✅ Swap completed! TX: 0x4b0b65e7dd0a4b4133f88a17a9cba7828b39d23c17949f45ff3f18d1a845b213
+
+🤖 [TICK] Agent Status:
+   Price: $2200 WETH/USD
+   USDC: 17715.00 | WETH: 0.2659
+   Portfolio: $18300.00 USD
+LLM fetch error: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   ⚠️  LLM API failed: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   🔄 Fallback rule: Price $2200 > $2100, executing swap
+   📝 Approving USDC for router...
+   ✅ USDC approved
+   🔄 Executing swap: 100.0 USDC → WETH
+   ✅ Swap completed! TX: 0x513041e161deea7c2820a39d71ae329c220867bc1a948cdd639b08b5b624c6fc
+
+🤖 [TICK] Agent Status:
+   Price: $2200 WETH/USD
+   USDC: 17615.00 | WETH: 0.2659
+   Portfolio: $18200.00 USD
+LLM fetch error: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   ⚠️  LLM API failed: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   🔄 Fallback rule: Price $2200 > $2100, executing swap
+   📝 Approving USDC for router...
+   ✅ USDC approved
+   🔄 Executing swap: 100.0 USDC → WETH
+   ✅ Swap completed! TX: 0x04caa1faa7ef425975d34a9ffc31fd8327c8034c618d880bd299e7494dbff344
+
+🤖 [TICK] Agent Status:
+   Price: $2200 WETH/USD
+   USDC: 17515.00 | WETH: 0.2659
+   Portfolio: $18100.00 USD
+LLM fetch error: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   ⚠️  LLM API failed: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   🔄 Fallback rule: Price $2200 > $2100, executing swap
+   📝 Approving USDC for router...
+   ✅ USDC approved
+   🔄 Executing swap: 100.0 USDC → WETH
+   ✅ Swap completed! TX: 0xb656608ab9c4eb98b8f8c5edfbbb10792c0cb6a924bdf716f392c8dab439cdc3
+
+🤖 [TICK] Agent Status:
+   Price: $2200 WETH/USD
+   USDC: 17415.00 | WETH: 0.2659
+   Portfolio: $18000.00 USD
+LLM fetch error: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   ⚠️  LLM API failed: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   🔄 Fallback rule: Price $2200 > $2100, executing swap
+   📝 Approving USDC for router...
+   ✅ USDC approved
+   🔄 Executing swap: 100.0 USDC → WETH
+   ✅ Swap completed! TX: 0xf8e0243419fbb3c8887e52694844f9a4ad65dbfc5a037938f42415bb9623d376
+
+🤖 [TICK] Agent Status:
+   Price: $2200 WETH/USD
+   USDC: 17315.00 | WETH: 0.2659
+   Portfolio: $17900.00 USD
+LLM fetch error: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   ⚠️  LLM API failed: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   🔄 Fallback rule: Price $2200 > $2100, executing swap
+   📝 Approving USDC for router...
+   ✅ USDC approved
+   🔄 Executing swap: 100.0 USDC → WETH
+   ✅ Swap completed! TX: 0xceb32af990844cc724d8ddd6530d869e574b5fa95d82376c670326dbf7cb9138
+
+🤖 [TICK] Agent Status:
+   Price: $2200 WETH/USD
+   USDC: 17215.00 | WETH: 0.2659
+   Portfolio: $17800.00 USD
+LLM fetch error: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   ⚠️  LLM API failed: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   🔄 Fallback rule: Price $2200 > $2100, executing swap
+   📝 Approving USDC for router...
+   ✅ USDC approved
+   🔄 Executing swap: 100.0 USDC → WETH
+   ✅ Swap completed! TX: 0x910b15e0768ce40ff898aebca2f379c0becd61d6e65afa1eb239dcc0bf1739bb
+
+🤖 [TICK] Agent Status:
+   Price: $2200 WETH/USD
+   USDC: 17115.00 | WETH: 0.2659
+   Portfolio: $17700.00 USD
+LLM fetch error: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   ⚠️  LLM API failed: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   🔄 Fallback rule: Price $2200 > $2100, executing swap
+   📝 Approving USDC for router...
+   ✅ USDC approved
+   🔄 Executing swap: 100.0 USDC → WETH
+   ✅ Swap completed! TX: 0xc90463efe221a59f4d25c8f554d5cfe3af0b8beb943b6a044a7df811c96e77d8
+
+🤖 [TICK] Agent Status:
+   Price: $2200 WETH/USD
+   USDC: 17015.00 | WETH: 0.2659
+   Portfolio: $17600.00 USD
+LLM fetch error: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   ⚠️  LLM API failed: request to http://localhost:3001/chat/completions failed, reason: connect ECONNREFUSED 127.0.0.1:3001
+   🔄 Fallback rule: Price $2200 > $2100, executing swap
+   📝 Approving USDC for router...
+   ✅ USDC approved
+   🔄 Executing swap: 100.0 USDC → WETH
+   ✅ Swap completed! TX: 0x6023bfe9ab1fbedaf188fd135ce0cd5a09de4ec15efa8e79b8ecc838186b3944
