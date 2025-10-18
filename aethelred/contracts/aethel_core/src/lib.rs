@@ -2,6 +2,8 @@
 // This is a simplified version to get the integration working
 // TODO: Implement full Aethelred protocol functionality
 
+pub mod state;
+
 pub struct AethelCore;
 
 impl AethelCore {

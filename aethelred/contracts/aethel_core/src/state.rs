@@ -4,6 +4,8 @@
 //! @notice Defines the core data structures and enums used in the Aethelred protocol's on-chain state.
 //! This includes the representation of tasks, disputes, and their various statuses.
 
+extern crate alloc;
+
 use stylus_sdk::prelude::*;
 use stylus_sdk::storage::{StorageAddress, StorageB256, StorageU256, StorageVec};
 use alloy_primitives::{U256};
@@ -261,7 +263,7 @@ pub mod utils {
 
     /// @notice Check if a bisection range is valid (start < end).
     pub fn is_valid_bisection_range(start: U256, end: U256) -> bool {
-        start < end && (end - start) > U256::from(1)
+        start < end && (end - start) >= U256::from(1)
     }
 
     /// @notice Calculate the maximum number of rounds needed for a given computation size.
@@ -313,6 +315,7 @@ mod tests {
         assert_eq!(calculate_bisection_midpoint(U256::from(100), U256::from(200)), U256::from(150));
         assert!(is_valid_bisection_range(U256::from(0), U256::from(10)));
         assert!(!is_valid_bisection_range(U256::from(10), U256::from(10)));
+        assert!(is_valid_bisection_range(U256::from(10), U256::from(11)));
     }
 
     #[test]
