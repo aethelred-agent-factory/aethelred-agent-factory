@@ -1,0 +1,9 @@
+{
+  "address": "0xb0eb4bfd410e6e9460ee7b3e4a960fd9eeda148b",
+  "privateKey": "0xf74e7e0befcf6dbda6961a306b11753c9a7d080b3f53e8c126cb95c879587cb4",
+  "mnemonic": "adult accuse address ability admit advice absent accident abuse acid advice achieve",
+  "network": "arbitrum-sepolia",
+  "rpcUrl": "https://arb-sepolia.g.alchemy.com/v2/G-0JsbpcHJNVzXSWr67Jv1ZoGMq7VELg",
+  "chainId": 421614,
+  "note": "Generated with basic crypto - for testnet use only"
+}

@@ -28,6 +28,15 @@
      function setAllowedTarget(address target, bool allowed) external onlyOwner {
          allowedTargets[target] = allowed;
      }
+     
+     // Batch function to set multiple targets at once (gas optimization)
+     function setAllowedTargets(address[] calldata targets, bool[] calldata allowed) external onlyOwner {
+         require(targets.length == allowed.length, "AgentWallet: array length mismatch");
+         for (uint256 i = 0; i < targets.length;) {
+             allowedTargets[targets[i]] = allowed[i];
+             unchecked { ++i; }
+         }
+     }
 
      function setPaused(bool on) external onlyOwner {
          paused = on;

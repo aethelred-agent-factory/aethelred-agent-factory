@@ -15,24 +15,34 @@ const RPC = "http://127.0.0.1:8545";
 const INTERVAL_MS = 20000;
 const mintFee = ethers.parseEther("0.01"); // Constant for mint fee
 
-// Load ABIs once and store them
+// Load ABIs once and store them (cached for performance)
 const ABIS = {};
 const ARTIFACT_PATHS = {
   AgentFactory: "artifacts/contracts/AgentFactory.sol/AgentFactory.json",
   AgentWallet: "artifacts/contracts/AgentWallet.sol/AgentWallet.json",
   MockPriceFeed: "artifacts/contracts/MockPriceFeed.sol/MockPriceFeed.json",
   MockRouter: "artifacts/contracts/MockRouter.sol/MockRouter.json",
-  MockERC20: "artifacts/contracts/MockERC20.sol/MockERC20.json", // Added ERC20 ABI
+  MockERC20: "artifacts/contracts/MockERC20.sol/MockERC20.json",
 };
 
-for (const [name, path] of Object.entries(ARTIFACT_PATHS)) {
-  try {
-    ABIS[name] = JSON.parse(fs.readFileSync(path, "utf8")).abi;
-  } catch (e) {
-    console.error(`Error loading ABI for ${name}: ${e.message}`);
-    process.exit(1);
+// Cache ABIs to avoid repeated file reads
+let abisLoaded = false;
+function loadAbis() {
+  if (abisLoaded) return;
+  
+  for (const [name, path] of Object.entries(ARTIFACT_PATHS)) {
+    try {
+      const artifact = JSON.parse(fs.readFileSync(path, "utf8"));
+      ABIS[name] = artifact.abi;
+    } catch (e) {
+      console.error(`Error loading ABI for ${name}: ${e.message}`);
+      process.exit(1);
+    }
   }
+  abisLoaded = true;
 }
+
+loadAbis();
 
 // Global provider and signer
 const provider = new ethers.JsonRpcProvider(RPC);
@@ -101,9 +111,17 @@ async function queryLLM(promptJSON) {
   }
 }
 
-// Centralized contract interaction function
+// Centralized contract interaction function with caching
+const contractCache = new Map();
+
 function getContract(address, name, signerOrProvider) {
-    return new Contract(address, ABIS[name], signerOrProvider);
+    const cacheKey = `${address}-${name}`;
+    
+    if (!contractCache.has(cacheKey)) {
+        contractCache.set(cacheKey, new Contract(address, ABIS[name], signerOrProvider));
+    }
+    
+    return contractCache.get(cacheKey);
 }
 
 async function mainLoop() {
@@ -185,7 +203,8 @@ async function mainLoop() {
 
   console.log(`\nStarting controller loop (runs every ${INTERVAL_MS / 1000}s).`);
 
-  setInterval(async () => {
+  // Use optimized polling with error handling
+  const controllerLoop = async () => {
     try {
       const currentPrice = await priceFeed.getPrice();
       const bal = await usdc.balanceOf(walletAddr);
@@ -281,7 +300,20 @@ async function mainLoop() {
     } catch (err) {
       console.error("\n[ERROR] Controller loop error:", err.message || err);
     }
-  }, INTERVAL_MS);
+  };
+
+  // Initial run
+  await controllerLoop();
+  
+  // Set up interval with error handling
+  const intervalId = setInterval(controllerLoop, INTERVAL_MS);
+  
+  // Graceful shutdown handling
+  process.on('SIGINT', () => {
+    console.log('\nShutting down gracefully...');
+    clearInterval(intervalId);
+    process.exit(0);
+  });
 }
 
 mainLoop().catch((e) => {
