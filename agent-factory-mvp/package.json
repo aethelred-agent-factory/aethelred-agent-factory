@@ -1,29 +1,14 @@
 {
   "name": "agent-factory-mvp",
   "version": "1.0.0",
-  "description": "MVP: Agent Factory + Agent Wallet + Node controller for testing (local)",
-  "scripts": {
-    "node": "npx hardhat node",
-    "deploy": "npx hardhat run scripts/deploy_and_write.js --network localhost",
-    "mint": "node scripts/mint_agent.js",
-    "start-controller": "node controller/agent_controller.js",
-    "start-enhanced-controller": "node controller/enhanced_agent_controller.js",
-    "update-price": "npx hardhat run scripts/update_price.js --network localhost",
-    "monitor": "npx hardhat run scripts/monitor_agent.js --network localhost",
-    "mint-tokens": "npx hardhat run scripts/mint_tokens.js --network localhost",
-    "test-trading": "npx hardhat run scripts/test_trading.js --network localhost"
-  },
+  "description": "Minimal agent controller",
+  "type": "module",
   "dependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
-    "@openzeppelin/contracts": "^4.9.3",
-    "cross-fetch": "^4.0.8",
-    "dotenv": "^16.3.1",
-    "ethers": "^6.9.0",
-    "express": "^5.1.0",
-    "node-fetch": "^3.3.2"
+    "ethers": "6.15.0"
   },
   "devDependencies": {
-    "hardhat": "^2.19.1"
-  },
-  "type": "module"
+    "@nomicfoundation/hardhat-toolbox": "6.1.0",
+    "dotenv": "17.2.3",
+    "hardhat": "3.0.7"
+  }
 }

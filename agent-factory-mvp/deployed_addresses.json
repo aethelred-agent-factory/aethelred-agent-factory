@@ -1,8 +1,20 @@
 {
-  "usdc": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-  "weth": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
-  "router": "0xE6E340D132b5f46d1e472DebcD681B2aBc16e57E",
-  "priceFeed": "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
-  "walletImpl": "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
-  "factory": "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707"
+  "arbitrum-sepolia": {
+    "walletImpl": "0x7e4ffA3F7d68B534865b63F82800fb1d06afE02c",
+    "factory": "0x5b7a1180Bf39f11E74ACB586371ef67DFD80436B",
+    "riskManager": "0x6be46c20a11158F2e3D6a07deeD6F02AB69c96Ad",
+    "defiIntegration": "0xD9b0F8a463344a414E5cD7aBAcFBf061E1B3b677",
+    "agentRegistry": "0x77823126CF1911b7ff7A9aD95020b76C93710562",
+    "deployer": "0x01d06c22991484331eB6661dF0537530C42d0907",
+    "chainId": 421614,
+    "rpcUrl": "https://arb-sepolia.g.alchemy.com/v2/G-0JsbpcHJNVzXSWr67Jv1ZoGMq7VELg"
+  },
+  "localhost": {
+    "usdc": "0xC2e95f5D9Bc59448af3d5DE372b4a77789193c0D",
+    "weth": "0xD00eaAe3Ad6e5F256AbE972483F7ddE2C06070A9",
+    "priceFeed": "0xF7E74e2dda3f4Dad2b7F8dA3a514d34565D2EB20",
+    "router": "0x7AA0bc38a1e037bf36ab9F4d33407e077DDd8721",
+    "walletImpl": "0xcEc3Efbde79c7E8E689b76295F792eA2dB8ebc04",
+    "factory": "0x7dfDC39785aD160e4a4016e2248E8236feAE4F60"
+  }
 }
